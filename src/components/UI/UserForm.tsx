@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { NewUser, UpdateUser, User } from "../../types/users";
+import { NewUser, User } from "../../types/users";
 import Input from "../Input/Input";
 
 type UserFormProps = {

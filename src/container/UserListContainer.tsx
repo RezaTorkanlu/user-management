@@ -2,7 +2,6 @@
 import Error from "@/app/Error";
 import Loading from "@/app/Loading";
 import UserList from "@/components/UI/UserList";
-import { User } from "@/types/users";
 import React, { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import Input from "@/components/Input/Input";
@@ -10,11 +9,9 @@ import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-type Props = {
-  initialUsers?: User[];
-};
 
-const UserListContainer: React.FC<Props> = () => {
+
+const UserListContainer = () => {
   const { users, loading, error, removeUser} = useUserContext();
   const [search, setSearch] = useState<string>("");
   const router = useRouter();

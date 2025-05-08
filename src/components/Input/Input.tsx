@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
 
-interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type IInputProps =  React.InputHTMLAttributes<HTMLInputElement> 
+  
 
-}
 
 const Input = (props: IInputProps) => {
   return <input {...props} className=" w-full outline-none p-2" />;
