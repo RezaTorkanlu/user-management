@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext } from "react";
 import { User, NewUser, UpdateUser } from "../types/users";
 import useFetch from "@/hooks/useFetch";
 import { createUser, updateUser ,deleteUser} from "@/services/userService";

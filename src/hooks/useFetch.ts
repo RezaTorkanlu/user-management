@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import  { useCallback, useEffect, useState } from "react";
 import { User } from "@/types/users";
 import { getUsers } from "@/services/userService";
 
