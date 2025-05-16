@@ -1,16 +1,27 @@
-'use client'
-import React, { createContext, useCallback, useContext } from "react";
+"use client";
+import React, { createContext, use, useCallback, useContext } from "react";
 import { User, NewUser, UpdateUser } from "../types/users";
+import {
+  createUser,
+  updateUser,
+  deleteUser,
+  updatePost,
+  deletePost,
+} from "@/services/userService";
+import { Posts, UpdatePost } from "@/types/posts";
 import useFetch from "@/hooks/useFetch";
-import { createUser, updateUser ,deleteUser} from "@/services/userService";
 
 interface UserContextProps {
   users: User[];
+  posts: Posts[];
   loading: boolean;
   error: string | null;
   addUser: (newUser: NewUser) => void;
   editUser: (id: number, updatedUser: UpdateUser) => void;
+  editPost: (id: number, updatedPost: UpdatePost) => void;
   removeUser: (id: number) => void;
+  removePost: (id: number) => void;
+  fetchPosts: () => Promise<void>;
   fetchUsers: () => Promise<void>;
 }
 
@@ -19,10 +30,21 @@ const UserContext = createContext<UserContextProps | undefined>(undefined);
 export const UserProvider: React.FC<{
   children: React.ReactNode;
   initialUsers?: User[];
-}> = ({ children, initialUsers = [] }) => {
-  const { users, loading, error, setUsers, fetchUsers,setLoading } =
-    useFetch(initialUsers);
-
+  initialPosts?: Posts[];
+}> = ({ children, initialUsers = [], initialPosts = [] }) => {
+  const {
+    users,
+    posts,
+    loading,
+    error,
+    setUsers,
+    fetchUsers,
+    setLoading,
+    fetchPosts,
+    setPosts,
+  } = useFetch(initialUsers, initialPosts);
+  
+  // User Logics
   const addUser = useCallback(
     async (newUser: NewUser) => {
       try {
@@ -52,27 +74,61 @@ export const UserProvider: React.FC<{
   const removeUser = useCallback(
     async (id: number) => {
       try {
-        setLoading(true)
+        setLoading(true);
         await deleteUser(id);
         setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
       } catch (error) {
         console.error("Error deleting user:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     },
     [setUsers]
   );
+
+  // Posts Logics
+  const editPost = useCallback(
+    async (id: number, updatedPost: UpdatePost) => {
+      try {
+        const updated = await updatePost(id, updatedPost);
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => (post.id === id ? updated : post))
+        );
+      } catch (error) {
+        console.error("Error updating post:", error);
+      }
+    },
+    [setPosts]
+  );
+
+  const removePost = useCallback(
+    async (id: number) => {
+      try {
+        setLoading(true);
+        await deletePost(id);
+        setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
+    },
+    [setPosts]
+  );
+
+  
   return (
     <UserContext.Provider
       value={{
         users,
+        posts,
         loading,
         error,
         addUser,
+        editPost,
         editUser,
         removeUser,
+        removePost,
         fetchUsers,
+        fetchPosts,
       }}
     >
       {children}
