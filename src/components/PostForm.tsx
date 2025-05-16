@@ -2,7 +2,7 @@
 
 import { updatePostValidation } from "@/helper/registerValidation";
 import { NewPost, Posts } from "@/types/posts";
-import { Form, useFormik } from "formik";
+import {  useFormik } from "formik";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -15,6 +15,7 @@ interface PostFormProps {
 const PostForm = ({ initialData, onSubmit }: PostFormProps) => {
   const [title, setTitle] = useState(initialData?.title);
   const [text, setText] = useState(initialData?.body);
+  
   const formik = useFormik({
     initialValues: {
       title: initialData?.title || "",

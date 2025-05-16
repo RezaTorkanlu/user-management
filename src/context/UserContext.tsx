@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, use, useCallback, useContext } from "react";
+import { createContext,  useCallback, useContext } from "react";
 import { User, NewUser, UpdateUser } from "../types/users";
 import {
   createUser,
@@ -104,7 +104,7 @@ export const UserProvider: React.FC<{
   const removePost = useCallback(
     async (id: number) => {
       try {
-        setLoading(true);
+        // setLoading(true);
         await deletePost(id);
         setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
       } catch (error) {

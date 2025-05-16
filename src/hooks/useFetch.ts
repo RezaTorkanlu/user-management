@@ -34,7 +34,6 @@ const useFetch = (initialUsers:User[] , initialPosts:Posts[]) => {
     } catch {
       setError('Error to Get Posts');
     }
-    fetchPosts()
   }, []);
   useEffect(() => {
     if (initialPosts.length === 0) fetchPosts();
