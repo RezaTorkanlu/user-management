@@ -8,8 +8,10 @@ import { useState } from "react";
 import ImageUploader from "@/helper/ImageUploader";
 import { useFormik } from "formik";
 import { registerValidation } from "@/helper/registerValidation";
-
-const RegisterFrom = () => {
+type RegisterFormProps = {
+  handleSubmit: () => void;
+};
+const RegisterFrom = ({handleSubmit}:RegisterFormProps) => {
   const [secondaryPhone, setSecondaryPhone] = useState<string>("");
   const formick = useFormik({
     initialValues: {
@@ -20,6 +22,7 @@ const RegisterFrom = () => {
     },
     onSubmit: (values) => {
       console.log(values);
+      handleSubmit();
     },
     validationSchema: registerValidation,
   });
@@ -32,7 +35,10 @@ const RegisterFrom = () => {
   };
 
   return (
-    <form onSubmit={formick.handleSubmit} className="w-6/12 flex flex-col gap-4 max-sm:w-full m-auto my-5 border rounded-2xl p-5 shadow-lg">
+    <form
+      onSubmit={formick.handleSubmit}
+      className="w-6/12 flex flex-col gap-4 max-sm:w-full m-auto my-5 border rounded-2xl p-5 shadow-lg"
+    >
       <div>
         <ImageUploader />
       </div>
