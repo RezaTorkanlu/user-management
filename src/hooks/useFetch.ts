@@ -1,9 +1,11 @@
 import  { useCallback, useEffect, useState } from "react";
 import { User } from "@/types/users";
-import { getUsers } from "@/services/userService";
+import { Posts } from "@/types/posts";
+import { getPosts, getUsers } from "@/services/userService";
 
-const useFetch = (initialUsers:User[] =[]) => {
+const useFetch = (initialUsers:User[] , initialPosts:Posts[]) => {
   const [users, setUsers] = useState<User[]>(initialUsers);
+  const [posts , setPosts] = useState<Posts[]>(initialPosts)
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -23,7 +25,21 @@ const useFetch = (initialUsers:User[] =[]) => {
     if(initialUsers.length === 0) fetchUsers();
   }, [fetchUsers , initialUsers.length]);
 
-  return { users, loading, error, fetchUsers , setUsers,setLoading };
+
+  const fetchPosts = useCallback(async () => {
+    setError(null);
+    try {
+      const data = await getPosts();
+      setPosts(data);
+    } catch {
+      setError('Error to Get Posts');
+    }
+  }, []);
+  useEffect(() => {
+    if (initialPosts.length === 0) fetchPosts();
+  },[fetchPosts, initialPosts.length])
+  
+  return { users, loading, error, fetchUsers , setUsers,setLoading , fetchPosts, posts ,setPosts };
 };
 
 export default useFetch;
