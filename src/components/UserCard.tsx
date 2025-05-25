@@ -31,7 +31,7 @@ const UserCard: React.FC<UserCardProps> = ({ onDelete, onEdit, user }) => {
           <FaTimes />
         </Button>
       </div>
-    </div>
+      </div>   
   );
 };
 

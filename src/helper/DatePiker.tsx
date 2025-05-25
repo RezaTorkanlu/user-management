@@ -1,37 +1,52 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { formatDate } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
-import { useState } from 'react'
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { formatDate } from "date-fns";
+import { CalendarIcon } from "lucide-react";
+import { useState } from "react";
 
+type DatePikerProps = {
+  onChange?: (date: Date) => void;
+  selectedDate?: Date | undefined;
+};
 
-const DatePiker = () => {
+const DatePiker = ({ onChange, selectedDate }: DatePikerProps) => {
   const [date, setDate] = useState<Date | undefined>(undefined);
-
+  
+  const handleDateChange = (selectedDate: Date|undefined) => {
+    setDate(selectedDate);
+    if (selectedDate) {
+      onChange?.(selectedDate);
+    }
+  };
+  
   return (
-     <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className="w-full justify-start text-left font-normal"
-            >
-              <CalendarIcon className="mr-2 h-4 w-4" />
-              {date ? formatDate(date, "PPP") : "Select Date"}
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent>
-            <Calendar
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
-  )
-}
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          className="w-full justify-start text-left font-normal"
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {date ? formatDate(date , "P") : "Select Date"}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={handleDateChange}
+          initialFocus
+        />
+      </PopoverContent>
+    </Popover>
+  );
+};
 
-export default DatePiker
+export default DatePiker;

@@ -1,10 +1,14 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+type SelectBoxProps = {
+  gender: string;
+  onChange: (value:string)=>void
+}
+const SelectBox = ({gender , onChange}:SelectBoxProps) => {
 
-const SelectBox = () => {
   return (
-    <Select>
+    <Select value={gender} onValueChange={onChange}> 
       <SelectTrigger className="w-[200px]">
-        <SelectValue placeholder="Sex" />
+        <SelectValue placeholder="gender" />
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="male">Male</SelectItem>

@@ -6,81 +6,90 @@ import SelectBox from "@/helper/SelectBox";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import ImageUploader from "@/helper/ImageUploader";
-import { useFormik } from "formik";
 import { registerValidation } from "@/helper/registerValidation";
-type RegisterFormProps = {
-  handleSubmit: () => void;
+import { useForm } from "react-hook-form";
+import { RegisterUser } from "@/types/users";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SubmitHandler } from "react-hook-form";
+
+type RegisterFromProps = {
+  onSubmit: (data: RegisterUser) => Promise<void>;
 };
-const RegisterFrom = ({handleSubmit}:RegisterFormProps) => {
+const RegisterFrom = ({onSubmit}:RegisterFromProps) => {
   const [secondaryPhone, setSecondaryPhone] = useState<string>("");
-  const formick = useFormik({
-    initialValues: {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<RegisterUser>({
+    defaultValues: {
       name: "",
       email: "",
       phone: "",
-      secondaryPhone: "",
+      dateOfBirth: new Date(),
+      secondaryPhone: secondaryPhone,
+      gender:"",
+      image: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
-      handleSubmit();
-    },
-    validationSchema: registerValidation,
+    resolver: yupResolver(registerValidation),
   });
-  const handlePlusPhoneNumber = () => {
-    if (secondaryPhone) {
-      setSecondaryPhone("");
-    } else {
-      setSecondaryPhone("your second phone number");
+
+  const gender = watch("gender")
+  const dateOfBirth = watch("dateOfBirth");
+
+  const handleFormSubmit: SubmitHandler<RegisterUser> = async (data) => {
+    try {
+      await new Promise((res) => setTimeout(res, 2000));
+      await onSubmit(data);
+      console.log(data)
+    } catch (error) {
+      setError("root", { message: "Submission failed" });
     }
   };
 
+  const handleAddPhone = () => {
+    setSecondaryPhone((prev) => (prev ? "" : "Secondary Phone Number"));
+  };
   return (
     <form
-      onSubmit={formick.handleSubmit}
+      onSubmit={handleSubmit(handleFormSubmit)}
       className="w-6/12 flex flex-col gap-4 max-sm:w-full m-auto my-5 border rounded-2xl p-5 shadow-lg"
     >
-      <div>
+      <div className=" gap-2">
         <ImageUploader />
+        {errors.image && <p className="text-red-500">{errors.image.message}</p>}
+       
       </div>
       <div>
         <Input
           type="text"
           className="w-full"
-          name="name"
           placeholder="User Name"
-          value={formick.values.name}
-          onChange={formick.handleChange}
+          {...register("name")}
         />
-        {formick.touched.name && formick.errors.name && (
-          <p className="text-red-600">{formick.errors.name}</p>
-        )}
+        {errors.name && <p className="text-red-500">{errors.name.message}</p>}
       </div>
       <div>
         <Input
           type="email"
           className="w-full"
-          name="email"
           placeholder="Email"
-          value={formick.values.email}
-          onChange={formick.handleChange}
+          {...register("email")}
         />
-        {formick.touched.email && formick.errors.email && (
-          <p className="text-red-600">{formick.errors.email}</p>
-        )}
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
       </div>
       <div className="flex justify-between gap-2">
         <Input
           type="tel"
           className="w-full"
-          name="phone"
           placeholder="Phone Number"
-          value={formick.values.phone}
-          onChange={formick.handleChange}
+          {...register("phone")}
         />
-        {formick.touched.phone && formick.errors.phone && (
-          <p className="text-red-600">{formick.errors.phone}</p>
-        )}
-        <Button type="button" onClick={handlePlusPhoneNumber}>
+        {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
+        <Button type="button" onClick={handleAddPhone}>
           {secondaryPhone ? <FaMinus /> : <FaPlus />}
         </Button>
       </div>
@@ -89,20 +98,35 @@ const RegisterFrom = ({handleSubmit}:RegisterFormProps) => {
           <Input
             type="tel"
             className="w-full "
-            name="secondaryPhone"
             placeholder={secondaryPhone}
-            value={formick.values.secondaryPhone}
-            onChange={formick.handleChange}
+            {...register("secondaryPhone")}
           />
+          {errors.secondaryPhone && (
+            <p className="text-red-500">{errors.secondaryPhone.message}</p>
+          )}
         </div>
       )}
 
       <div className=" flex justify-between gap-5">
         <div>
-          <SelectBox />
+          <label className="text-sm p-2">gender</label>
+          <SelectBox
+            gender={gender}
+            onChange={(value)=> setValue('gender', value)}
+          />
+          {errors.gender && (
+            <p className="text-red-500">{errors.gender.message}</p>
+          )}
         </div>
         <div className="w-1/2 ">
-          <DatePiker />
+          <label className="text-sm p-2">date of birth</label>
+          <DatePiker
+            selectedDate={dateOfBirth}
+            onChange={(value) => setValue("dateOfBirth", value)}
+          />
+          {errors.dateOfBirth && (
+            <p className="text-red-500">{errors.dateOfBirth.message}</p>
+          )}
         </div>
       </div>
       <Button className="w-full" type="submit">
@@ -110,6 +134,7 @@ const RegisterFrom = ({handleSubmit}:RegisterFormProps) => {
       </Button>
     </form>
   );
+ 
 };
 
 export default RegisterFrom;

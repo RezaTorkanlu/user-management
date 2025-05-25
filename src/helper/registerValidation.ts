@@ -1,6 +1,5 @@
 import * as Yup from "yup";
 
-
 export const registerValidation = Yup.object().shape({
   name: Yup.string()
     .min(4, "Name must be at least 4 characters")
@@ -9,8 +8,13 @@ export const registerValidation = Yup.object().shape({
   phone: Yup.string()
     .matches(/^\d+$/, "Phone number must be digits")
     .required("Phone number is required"),
-  secondaryPhone: Yup.string()
-    .matches(/^\d+$/, "Secondary phone number must be digits")
+  secondaryPhone: Yup.string().optional()
+    .matches(/^\d+$/, "Secondary phone number must be digits"),
+  gender: Yup.string().required("gender is required"),
+  dateOfBirth: Yup.date().max(
+    new Date(),
+    "Date of birth cannot be in the future"
+  ),
 });
 
 export const updateUserValidation = Yup.object().shape({
@@ -20,7 +24,8 @@ export const updateUserValidation = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone: Yup.string()
     .matches(/^\d+$/, "Phone number must be digits")
-})
+    .required("Phone number is required"),
+});
 
 export const updatePostValidation = Yup.object().shape({
   title: Yup.string()
@@ -29,5 +34,4 @@ export const updatePostValidation = Yup.object().shape({
   body: Yup.string()
     .min(10, "Content must be at least 10 characters")
     .required("Content is required"),
-})
-
+});

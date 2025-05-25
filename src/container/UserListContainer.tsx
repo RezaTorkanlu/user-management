@@ -8,6 +8,14 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const UserListContainer = () => {
   const { users, loading, error, removeUser } = useUserContext();
@@ -47,7 +55,7 @@ const UserListContainer = () => {
     <div className="flex flex-col ">
       <div className="flex items-center justify-center gap-5 my-10 m-auto w-6/12 max-sm:w-full ">
         <Input
-          className=" h-10 "
+          className=" h-10  w-full"
           placeholder={`Search by ${typeSearch}`}
           onChange={(e) => {
             setSearch(e.target.value);

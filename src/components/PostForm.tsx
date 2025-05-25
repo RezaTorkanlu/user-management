@@ -2,70 +2,61 @@
 
 import { updatePostValidation } from "@/helper/registerValidation";
 import { NewPost, Posts } from "@/types/posts";
-import {  useFormik } from "formik";
-import React, { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 interface PostFormProps {
   initialData?: Partial<Posts>;
   onSubmit: (data: NewPost) => Promise<void>;
 }
-const PostForm = ({ initialData, onSubmit }: PostFormProps) => {
-  const [title, setTitle] = useState(initialData?.title);
-  const [text, setText] = useState(initialData?.body);
-  
-  const formik = useFormik({
-    initialValues: {
+const PostForm = ({ initialData ,onSubmit }: PostFormProps) => {
+  const {
+    register,
+    setError,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<NewPost>({
+    defaultValues: {
       title: initialData?.title || "",
       body: initialData?.body || "",
     },
-    onSubmit: async (values) => {
-      try {
-        await onSubmit(values as NewPost);
-        if (!initialData) {
-          setTitle("");
-          setText("");
-        }
-      } catch (error) {
-        console.error("Error creating post:", error);
-      }
-    },
-    validationSchema: updatePostValidation,
+    resolver: yupResolver(updatePostValidation),
   });
+  const handlePostSubmit = async (data: NewPost) => {
+    try {
+      await onSubmit(data);
+    } catch (error) {
+      setError("root", { message: "Submission failed" });
+    }
+  };
 
   return (
     <form
-      onSubmit={formik.handleSubmit}
+      onSubmit={handleSubmit(handlePostSubmit)}
       className="flex flex-col gap-4 w-6/12 max-sm:w-full m-auto my-5 border rounded-2xl p-5 shadow-lg "
     >
       <div>
         <Input
           type="text"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          name="title"
+          {...register("title")}
           className="w-full h-10 p-5"
         />
-        {formik.touched.title && formik.errors.title && (
-          <p className="text-red-600">{formik.errors.title}</p>
-        )}
+        {errors.title && <p className="text-red-600">{errors.title.message}</p>}
       </div>
       <div>
         <Textarea
           placeholder="Write your post here..."
-          value={formik.values.body}
-          onChange={formik.handleChange}
-          name="body"
           className="w-full p-5 "
+          {...register("body")}
         />
-        {formik.touched.body && formik.errors.body && (
-          <p className="text-red-600">{formik.errors.body}</p>
-        )}
+        {errors.body && <p className="text-red-600">{errors.body.message}</p>}
       </div>
-      <Button type="submit" disabled={formik.isSubmitting}>
-        {formik.isSubmitting ? "Submitting..." : "Submit"}
+      <Button type="submit" disabled={isSubmitting}>
+        {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
     </form>
   );

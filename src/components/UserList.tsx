@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "@/types/users";
 import UserCard from "./UserCard";
+import { TableCell, TableRow } from "./ui/table";
 
 type UserListProps = {
   users: User[];
@@ -14,12 +15,14 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete, onEdit }) => {
   return (
     <div className="grid min-lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1 justify-center">
       {users.map((user) => (
-        <UserCard
-          key={user.id}
-          user={user}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
+        <TableRow>
+          <UserCard
+            key={user.id}
+            user={user}
+            onDelete={onDelete}
+            onEdit={onEdit}
+          />
+        </TableRow>
       ))}
     </div>
   );
