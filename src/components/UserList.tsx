@@ -1,7 +1,15 @@
 import React from "react";
 import { User } from "@/types/users";
-import UserCard from "./UserCard";
-import { TableCell, TableRow } from "./ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { Button } from "./ui/button";
+import { FaPen, FaTimes } from "react-icons/fa";
 
 type UserListProps = {
   users: User[];
@@ -13,18 +21,33 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete, onEdit }) => {
     return <p className=" font-bold text-center text-2xl">User Not Found!</p>;
 
   return (
-    <div className="grid min-lg:grid-cols-4 gap-4 md:grid-cols-2 sm:grid-cols-1 justify-center">
-      {users.map((user) => (
+    <Table>
+      <TableHeader>
         <TableRow>
-          <UserCard
-            key={user.id}
-            user={user}
-            onDelete={onDelete}
-            onEdit={onEdit}
-          />
+          <TableHead>Name</TableHead>
+          <TableHead>Email</TableHead>
+          <TableHead>Phone</TableHead>
+          <TableHead>Actions</TableHead>
         </TableRow>
-      ))}
-    </div>
+      </TableHeader>
+      <TableBody>
+        {users.map((user) => (
+          <TableRow key={user.id}>
+            <TableCell>{ user.name}</TableCell>
+            <TableCell>{ user.email}</TableCell>
+            <TableCell>{user.phone}</TableCell>
+            <TableCell className="flex items-center gap-2">
+            <Button size="sm" variant="outline" onClick={() => onEdit(user.id)}>
+                <FaPen />
+              </Button>
+              <Button size="sm" variant="destructive" onClick={() => onDelete(user.id)}>
+                <FaTimes />
+              </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

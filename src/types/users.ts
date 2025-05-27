@@ -6,7 +6,7 @@ export interface User {
   secondaryPhone?: string | undefined;
   gender: string;
   dateOfBirth: Date;
-  image?: string | undefined;
+  image: string | null ;
 }
 
 export type NewUser = Omit<
@@ -14,4 +14,4 @@ export type NewUser = Omit<
   "id" | "secondaryPhone" | "gender" | "dateOfBirth" | "image"
 >;
 export type UpdateUser = Partial<Omit<User, "id">>;
-export type RegisterUser = Omit<User , 'id'>
+export type RegisterUser = Omit<User, 'id'>

@@ -1,9 +1,20 @@
-import { Posts } from '@/types/posts'
-import React from 'react'
-import PostCard from './PostCard';
+import { Posts } from "@/types/posts";
+import React from "react";
+import PostCard from "./PostCard";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./ui/table";
+import { Button } from "./ui/button";
+import { FaPen, FaTimes } from "react-icons/fa";
+import Link from "next/link";
 
 interface PostListProps {
-  posts: Posts[],
+  posts: Posts[];
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
@@ -12,17 +23,36 @@ const PostList = ({ onDelete, onEdit, posts }: PostListProps) => {
     return <p className=" font-bold text-center text-2xl">Post Not Found!</p>;
 
   return (
-    <div className='grid grid-cols-2 gap-4 mt-5'>
-      {posts.map((post)=> (
-        <PostCard 
-          key={post.id}
-          post={post}
-          onDelete={onDelete}
-          onEdit={onEdit}
-        />
-      ))}
-    </div>
-  )
-}
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Title</TableHead>
+          <TableHead>Post</TableHead>
+          <TableHead className="text-center">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {posts.map((post) => (
+          <TableRow key={post.id} >
+            <TableCell className="max-w-98 truncate"><Link href={`posts/${post.id}`}>{ post.title}</Link></TableCell>
+            <TableCell className="max-w-xs truncate">{post.body}</TableCell>
+            <TableCell className="flex items-center gap-2 justify-end">
+            <Button size="sm" variant="outline" onClick={() => onEdit(post.id)}>
+              <FaPen />
+            </Button>
+            <Button
+              size="sm"
+              variant="destructive"
+              onClick={() => onDelete(post.id)}
+            >
+              <FaTimes />
+            </Button>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+};
 
-export default PostList
+export default PostList;

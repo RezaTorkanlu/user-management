@@ -6,15 +6,16 @@ export const registerValidation = Yup.object().shape({
     .required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone: Yup.string()
-    .matches(/^\d+$/, "Phone number must be digits")
-    .required("Phone number is required"),
-  secondaryPhone: Yup.string().optional()
+    .required("Phone number is required")
+    .matches(/^\d+$/, "Phone number must be digits"),
+  secondaryPhone: Yup.string()
+    .optional()
     .matches(/^\d+$/, "Secondary phone number must be digits"),
   gender: Yup.string().required("gender is required"),
-  dateOfBirth: Yup.date().max(
-    new Date(),
-    "Date of birth cannot be in the future"
-  ),
+  dateOfBirth: Yup.date()
+    .required("Date of birth is required")
+    .max(new Date(), "Date of birth cannot be in the future"),
+  image: Yup.mixed().required(),
 });
 
 export const updateUserValidation = Yup.object().shape({

@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "./ui/button";
 import { updateUserValidation } from "@/helper/registerValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+
 
 type UserFormProps = {
   initialData?: Partial<User>;

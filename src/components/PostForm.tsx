@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+
 
 interface PostFormProps {
   initialData?: Partial<Posts>;
