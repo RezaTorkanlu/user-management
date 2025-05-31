@@ -7,20 +7,20 @@ import { Button } from "./ui/button";
 const Navbar = () => {
   return (
     <nav className="flex justify-between items-center shadow-2xl p-5 rounded-2xl mt-5 ">
-      <div className="flex items-center gap-5">
+      <div className="flex items-center mx-2">
         <Link href="/">
           <Image src={logo} width={32} height={32} alt="logo-icon" />
         </Link>
-        <Button type='button' >
-          <Link href="/register">Sign Up</Link>
-        </Button>
       </div>
       <div className="flex gap-4">
-        <Button type='button' >
-          <Link href="/users/create">Create User</Link>
+        <Button type='button' className="bg-gray-500" >
+          <Link href="/"> Users</Link>
         </Button>
-        <Button type='button' >
-          <Link href="/posts">See Posts</Link>
+        <Button type='button' className="bg-gray-500" >
+          <Link href="/posts"> Posts</Link>
+        </Button>
+        <Button type='button' variant='outline' size='lg' className="ml-8 mr-2 text-gray-600" >
+          <Link href="/auth/register">Sign Up</Link>
         </Button>
       </div>
     </nav>
