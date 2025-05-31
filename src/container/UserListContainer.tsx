@@ -16,6 +16,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 
 const UserListContainer = () => {
   const { users, loading, error, removeUser } = useUserContext();
@@ -64,12 +65,16 @@ const UserListContainer = () => {
         />
 
         <Button
+          className="bg-gray-600"
           type="button"
           onClick={() =>
             setTypeSearch(typeSearch === "name" ? "email" : "name")
           }
         >
           search by {typeSearch === "name" ? "email" : "name"}
+        </Button>
+        <Button className="bg-gray-600" type="button">
+          <Link href='/users/create'>Create User</Link>
         </Button>
       </div>
       <UserList

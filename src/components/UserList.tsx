@@ -22,17 +22,17 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete, onEdit }) => {
 
   return (
     <Table>
-      <TableHeader>
+      <TableHeader className="bg-gray-500">
         <TableRow>
-          <TableHead>Name</TableHead>
-          <TableHead>Email</TableHead>
-          <TableHead>Phone</TableHead>
-          <TableHead>Actions</TableHead>
+          <TableHead className="text-white">Name</TableHead>
+          <TableHead className="text-white">Email</TableHead>
+          <TableHead className="text-white">Phone</TableHead>
+          <TableHead className="text-white">Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {users.map((user) => (
-          <TableRow key={user.id}>
+          <TableRow key={user.id} className="odd:bg-gray-100 even:bg-gray-300">
             <TableCell>{ user.name}</TableCell>
             <TableCell>{ user.email}</TableCell>
             <TableCell>{user.phone}</TableCell>
