@@ -55,7 +55,7 @@ const PostForm = ({ initialData ,onSubmit }: PostFormProps) => {
         />
         {errors.body && <p className="text-red-600">{errors.body.message}</p>}
       </div>
-      <Button type="submit" disabled={isSubmitting}>
+      <Button type="submit" disabled={isSubmitting} className="bg-blue-500">
         {isSubmitting ? "Submitting..." : "Submit"}
       </Button>
     </form>

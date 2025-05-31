@@ -17,12 +17,12 @@ type DatePikerProps = {
 };
 
 const DatePiker = ({ onChange, selectedDate }: DatePikerProps) => {
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<Date | undefined>(selectedDate);
   
-  const handleDateChange = (selectedDate: Date|undefined) => {
-    setDate(selectedDate);
-    if (selectedDate) {
-      onChange?.(selectedDate);
+  const handleDateChange = (newDate: Date|undefined) => {
+    setDate(newDate);
+    if (newDate) {
+      onChange?.(newDate);
     }
   };
   

@@ -78,7 +78,7 @@ const UserForm: React.FC<UserFormProps> = ({ initialData , onSubmit }) => {
       <Button
         type="submit"
         disabled={isSubmitting}
-        className=" text-white p-2 cursor-pointer rounded-md transition duration-300 ease-in-out"
+        className="bg-blue-500"
       >
         {isSubmitting
           ? "Sending ..."

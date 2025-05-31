@@ -39,7 +39,7 @@ const ImageUploader = ({onUpload} :ImageUploaderProps) => {
         />
         <Button
           type="button"
-          className="cursor-pointer"
+          className="cursor-pointer bg-red-500"
           onClick={handleClearImage}
         >
           <FaTimes />
