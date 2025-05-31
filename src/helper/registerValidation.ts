@@ -1,30 +1,12 @@
 import * as Yup from "yup";
 
-export const registerValidation = Yup.object().shape({
-  name: Yup.string()
-    .min(4, "Name must be at least 4 characters")
-    .required("Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string()
-    .required("Phone number is required")
-    .matches(/^\d+$/, "Phone number must be digits"),
-  secondaryPhone: Yup.string()
-    .optional()
-    .matches(/^\d+$/, "Secondary phone number must be digits"),
-  gender: Yup.string().required("gender is required"),
-  dateOfBirth: Yup.date()
-    .required("Date of birth is required")
-    .max(new Date(), "Date of birth cannot be in the future"),
-  image: Yup.mixed().required(),
-});
-
 export const updateUserValidation = Yup.object().shape({
   name: Yup.string()
     .min(4, "Name must be at least 4 characters")
     .required("Name is required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone: Yup.string()
-    .matches(/^\d+$/, "Phone number must be digits")
+    .matches(/^(?:\+98|0)?9\d{9}$/, "Phone number must be a valid Iranian mobile number")
     .required("Phone number is required"),
 });
 

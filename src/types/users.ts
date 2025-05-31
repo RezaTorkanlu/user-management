@@ -5,8 +5,8 @@ export interface User {
   phone: string;
   secondaryPhone?: string | undefined;
   gender: string;
-  dateOfBirth: Date;
-  image: string | null ;
+  dateOfBirth: Date | null;
+  image: FileList | null ;
 }
 
 export type NewUser = Omit<
