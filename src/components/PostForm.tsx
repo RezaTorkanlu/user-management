@@ -4,7 +4,7 @@ import { updatePostValidation } from "@/helper/registerValidation";
 import { NewPost, Posts } from "@/types/posts";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Textarea } from "@/components/ui/textarea";
+import { Textarea } from "./ui/textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
