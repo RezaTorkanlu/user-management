@@ -7,7 +7,6 @@ const RegistePage = () => {
   const router = useRouter()
 
   const handleSubmit = async (data: RegisterUser): Promise<void> => {
-    console.log(data)
     router.push('/')
   }
   return (

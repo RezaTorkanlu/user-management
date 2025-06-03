@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { Button } from "./ui/button";
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { FaPen, FaTimes } from "react-icons/fa";
 import Link from "next/link";
 

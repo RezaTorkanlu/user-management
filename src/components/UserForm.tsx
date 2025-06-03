@@ -1,9 +1,9 @@
 "use client";
 
-import { NewUser, UpdateUser, User } from "../types/users";
-import { Input } from "./ui/input";
+import { NewUser, User } from "../types/users";
+import { Input } from "@/components/ui/input";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { updateUserValidation } from "@/helper/registerValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
 

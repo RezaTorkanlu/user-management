@@ -40,7 +40,6 @@ const RegisterFrom = ({ onSubmit }: RegisterFromProps) => {
     try {
       await new Promise((res) => setTimeout(res, 2000));
       await onSubmit(data);
-      console.log(data);
     } catch (error) {
       setError("root", { message: "Submission failed" });
       console.log(error)
