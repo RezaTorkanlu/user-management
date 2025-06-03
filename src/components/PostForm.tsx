@@ -2,11 +2,11 @@
 
 import { updatePostValidation } from "@/helper/registerValidation";
 import { NewPost, Posts } from "@/types/posts";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Textarea } from "./ui/textarea";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 
 interface PostFormProps {

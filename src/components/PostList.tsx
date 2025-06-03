@@ -1,5 +1,7 @@
 import { Posts } from "@/types/posts";
 import React from "react";
+import { FaPen, FaTimes } from "react-icons/fa";
+import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -7,10 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import { FaPen, FaTimes } from "react-icons/fa";
-import Link from "next/link";
+} from "./ui/table";
+import { Button } from "./ui/button";
 
 interface PostListProps {
   posts: Posts[];
@@ -24,7 +24,7 @@ const PostList = ({ onDelete, onEdit, posts }: PostListProps) => {
   return (
     <Table className="mt-5">
       <TableHeader className="bg-gray-500">
-        <TableRow >
+        <TableRow>
           <TableHead className="text-white">Title</TableHead>
           <TableHead className="text-white">Post</TableHead>
           <TableHead className="text-center text-white">Actions</TableHead>
@@ -33,19 +33,25 @@ const PostList = ({ onDelete, onEdit, posts }: PostListProps) => {
       <TableBody>
         {posts.map((post) => (
           <TableRow key={post.id} className="odd:bg-gray-100 even:bg-gray-300">
-            <TableCell className="max-w-98 truncate"><Link href={`posts/${post.id}`}>{ post.title}</Link></TableCell>
+            <TableCell className="max-w-98 truncate">
+              <Link href={`posts/${post.id}`}>{post.title}</Link>
+            </TableCell>
             <TableCell className="max-w-xs truncate">{post.body}</TableCell>
             <TableCell className="flex items-center gap-2 justify-end">
-            <Button size="sm" variant="outline" onClick={() => onEdit(post.id)}>
-              <FaPen />
-            </Button>
-            <Button
-              size="sm"
-              variant="destructive"
-              onClick={() => onDelete(post.id)}
-            >
-              <FaTimes />
-            </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => onEdit(post.id)}
+              >
+                <FaPen />
+              </Button>
+              <Button
+                size="sm"
+                variant="destructive"
+                onClick={() => onDelete(post.id)}
+              >
+                <FaTimes />
+              </Button>
             </TableCell>
           </TableRow>
         ))}

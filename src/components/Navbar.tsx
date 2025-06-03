@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import logo from "@/app/favicon.ico";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   return (

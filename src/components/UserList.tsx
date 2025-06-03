@@ -1,15 +1,9 @@
 import React from "react";
 import { User } from "@/types/users";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+
 import { FaPen, FaTimes } from "react-icons/fa";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
+import { Button } from "./ui/button";
 
 type UserListProps = {
   users: User[];
