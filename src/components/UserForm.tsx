@@ -4,16 +4,15 @@ import { NewUser, User } from "../types/users";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { updateUserValidation } from "@/helper/registerValidation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-
+import { Input } from "./UI/input";
+import { Button } from "./UI/button";
 
 type UserFormProps = {
   initialData?: Partial<User>;
   onSubmit?: (data: NewUser) => Promise<void>;
 };
 
-const UserForm: React.FC<UserFormProps> = ({ initialData , onSubmit }) => {
+const UserForm: React.FC<UserFormProps> = ({ initialData, onSubmit }) => {
   const {
     register,
     handleSubmit,
@@ -31,8 +30,8 @@ const UserForm: React.FC<UserFormProps> = ({ initialData , onSubmit }) => {
   const handleUserSubmit: SubmitHandler<NewUser> = async (data) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000));
-      await onSubmit?.(data)
-    } catch (error) {
+      await onSubmit?.(data);
+    } catch {
       setError("root", { message: "Submission failed" });
     }
   };
@@ -75,11 +74,7 @@ const UserForm: React.FC<UserFormProps> = ({ initialData , onSubmit }) => {
           <div className="text-red-500">{errors.phone.message}</div>
         )}
       </div>
-      <Button
-        type="submit"
-        disabled={isSubmitting}
-        className="bg-blue-500"
-      >
+      <Button type="submit" disabled={isSubmitting} className="bg-blue-500">
         {isSubmitting
           ? "Sending ..."
           : initialData

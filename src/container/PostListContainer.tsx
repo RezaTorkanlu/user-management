@@ -3,7 +3,7 @@
 import Error from "@/app/Error";
 import Loading from "@/app/Loading";
 import PostList from "@/components/PostList";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/UI/input";
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";

@@ -2,8 +2,15 @@ import React from "react";
 import { User } from "@/types/users";
 
 import { FaPen, FaTimes } from "react-icons/fa";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { Button } from "./ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "./UI/table";
+import { Button } from "./UI/button";
 
 type UserListProps = {
   users: User[];
@@ -27,14 +34,22 @@ const UserList: React.FC<UserListProps> = ({ users, onDelete, onEdit }) => {
       <TableBody>
         {users.map((user) => (
           <TableRow key={user.id} className="odd:bg-gray-100 even:bg-gray-300">
-            <TableCell>{ user.name}</TableCell>
-            <TableCell>{ user.email}</TableCell>
+            <TableCell>{user.name}</TableCell>
+            <TableCell>{user.email}</TableCell>
             <TableCell>{user.phone}</TableCell>
             <TableCell className="flex items-center gap-2">
-            <Button size="sm" variant="outline" onClick={() => onEdit(user.id)}>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => onEdit(user.id)}
+              >
                 <FaPen />
               </Button>
-              <Button size="sm" variant="destructive" onClick={() => onDelete(user.id)}>
+              <Button
+                size="sm"
+                variant="destructive"
+                onClick={() => onDelete(user.id)}
+              >
                 <FaTimes />
               </Button>
             </TableCell>

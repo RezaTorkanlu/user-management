@@ -1,11 +1,11 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/UI/input";
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/UI/button";
 type ImageUploaderProps = {
-  onUpload:(file: File | null) => void;
-}
-const ImageUploader = ({onUpload} :ImageUploaderProps) => {
+  onUpload: (file: File | null) => void;
+};
+const ImageUploader = ({ onUpload }: ImageUploaderProps) => {
   const [image, setImage] = useState<File | null>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +17,7 @@ const ImageUploader = ({onUpload} :ImageUploaderProps) => {
   const handleClearImage = () => {
     setImage(null);
     onUpload(null);
-  }
+  };
   return (
     <div className="flex flex-col items-center justify-between">
       {image && (
@@ -28,7 +28,7 @@ const ImageUploader = ({onUpload} :ImageUploaderProps) => {
         />
       )}
       <label htmlFor="pic">Upload Your Image</label>
-      {image ? 'Change Image' : 'Select Image'}
+      {image ? "Change Image" : "Select Image"}
       <div className="flex items-center justify-center mt-4 gap-5">
         <Input
           id="pic"

@@ -1,6 +1,6 @@
 "use client";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "./UI/input";
+import { Button } from "./UI/button";
 import DatePiker from "@/helper/DatePiker";
 import SelectBox from "@/helper/SelectBox";
 import { FaMinus, FaPlus } from "react-icons/fa";
@@ -42,7 +42,7 @@ const RegisterFrom = ({ onSubmit }: RegisterFromProps) => {
       await onSubmit(data);
     } catch (error) {
       setError("root", { message: "Submission failed" });
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -148,7 +148,7 @@ const RegisterFrom = ({ onSubmit }: RegisterFromProps) => {
           <label className="text-sm p-2">gender</label>
           <SelectBox
             gender={gender}
-            {...register('gender',{required:"gender must be selected"})}
+            {...register("gender", { required: "gender must be selected" })}
             onChange={(value) =>
               setValue("gender", value, { shouldValidate: true })
             }
@@ -182,7 +182,7 @@ const RegisterFrom = ({ onSubmit }: RegisterFromProps) => {
           )}
         </div>
       </div>
-      <Button className="w-full bg-blue-500" variant='secondary' type="submit" >
+      <Button className="w-full bg-blue-500" variant="secondary" type="submit">
         Register
       </Button>
       {errors.root && (

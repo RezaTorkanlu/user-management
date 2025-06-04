@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/UI/button";
+import { Calendar } from "@/components/UI/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/components/UI/popover";
 import { formatDate } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -18,14 +18,14 @@ type DatePikerProps = {
 
 const DatePiker = ({ onChange, selectedDate }: DatePikerProps) => {
   const [date, setDate] = useState<Date | undefined>(selectedDate);
-  
-  const handleDateChange = (newDate: Date|undefined) => {
+
+  const handleDateChange = (newDate: Date | undefined) => {
     setDate(newDate);
     if (newDate) {
       onChange?.(newDate);
     }
   };
-  
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,7 +34,7 @@ const DatePiker = ({ onChange, selectedDate }: DatePikerProps) => {
           className="w-full justify-start text-left font-normal"
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? formatDate(date , "P") : "Select Date"}
+          {date ? formatDate(date, "P") : "Select Date"}
         </Button>
       </PopoverTrigger>
       <PopoverContent>

@@ -6,8 +6,8 @@ import React, { useState } from "react";
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/UI/input";
+import { Button } from "@/components/UI/button";
 import Link from "next/link";
 
 const UserListContainer = () => {
@@ -66,7 +66,7 @@ const UserListContainer = () => {
           search by {typeSearch === "name" ? "email" : "name"}
         </Button>
         <Button className="bg-gray-600" type="button">
-          <Link href='/users/create'>Create User</Link>
+          <Link href="/users/create">Create User</Link>
         </Button>
       </div>
       <UserList

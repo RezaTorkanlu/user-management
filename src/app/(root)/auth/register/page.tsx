@@ -1,12 +1,11 @@
 'use client'
 import RegisterFrom from "@/components/RegisterFrom"
-import { RegisterUser } from "@/types/users"
 import { useRouter } from "next/navigation"
 
 const RegistePage = () => {
   const router = useRouter()
 
-  const handleSubmit = async (data: RegisterUser): Promise<void> => {
+  const handleSubmit = async (): Promise<void> => {
     router.push('/')
   }
   return (

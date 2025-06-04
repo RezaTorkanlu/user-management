@@ -9,8 +9,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table";
-import { Button } from "./ui/button";
+} from "./UI/table";
+import { Button } from "./UI/button";
 
 interface PostListProps {
   posts: Posts[];

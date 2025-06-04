@@ -1,12 +1,17 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/UI/select";
 type SelectBoxProps = {
   gender: string;
-  onChange: (value:string)=>void
-}
-const SelectBox = ({gender , onChange}:SelectBoxProps) => {
-
+  onChange: (value: string) => void;
+};
+const SelectBox = ({ gender, onChange }: SelectBoxProps) => {
   return (
-    <Select value={gender} onValueChange={onChange}> 
+    <Select value={gender} onValueChange={onChange}>
       <SelectTrigger className="w-[200px]">
         <SelectValue placeholder="gender" />
       </SelectTrigger>
