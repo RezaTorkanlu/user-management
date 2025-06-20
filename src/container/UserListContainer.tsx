@@ -1,27 +1,30 @@
 "use client";
 import Error from "@/app/Error";
 import Loading from "@/app/Loading";
-import UserList from "@/components/UI/UserList";
+import UserList from "@/components/UserList";
 import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import Input from "@/components/Input/Input";
 import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-
-
+import { Input } from "@/components/UI/input";
+import { Button } from "@/components/UI/button";
+import Link from "next/link";
 
 const UserListContainer = () => {
-  const { users, loading, error, removeUser} = useUserContext();
+  const { users, loading, error, removeUser } = useUserContext();
   const [search, setSearch] = useState<string>("");
+  const [typeSearch, setTypeSearch] = useState<string>("name");
   const router = useRouter();
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(search.toLowerCase()) ||
-      user.email.toLowerCase().includes(search.toLowerCase())
-  );
 
-  const handleDelete = async(id: number) => { 
+  const filteredUsers = users.filter((user) => {
+    if (typeSearch === "name") {
+      return user.name.toLowerCase().includes(search.toLowerCase());
+    } else {
+      return user.email.toLowerCase().includes(search.toLowerCase());
+    }
+  });
+
+  const handleDelete = async (id: number) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
         await removeUser(id);
@@ -32,8 +35,8 @@ const UserListContainer = () => {
       }
     } else {
       toast.info("User deletion cancelled");
-      }
-  }
+    }
+  };
 
   const handleEdit = (id: number) => {
     router.push(`/users/edit/${id}`);
@@ -43,17 +46,28 @@ const UserListContainer = () => {
   if (error) return <Error />;
   return (
     <div className="flex flex-col ">
-      <div className="flex items-center justify-center border rounded  my-10 m-auto w-6/12 max-sm:w-full ">
-        <span className="mx-2">
-          <FaSearch className="size-5 " />
-        </span>
+      <div className="flex items-center justify-center gap-5 my-10 m-auto w-6/12 max-sm:w-full ">
         <Input
-          placeholder="search users by name or email"
+          className=" h-10  w-full"
+          placeholder={`Search by ${typeSearch}`}
           onChange={(e) => {
             setSearch(e.target.value);
           }}
           value={search}
         />
+
+        <Button
+          className="bg-gray-600"
+          type="button"
+          onClick={() =>
+            setTypeSearch(typeSearch === "name" ? "email" : "name")
+          }
+        >
+          search by {typeSearch === "name" ? "email" : "name"}
+        </Button>
+        <Button className="bg-gray-600" type="button">
+          <Link href="/users/create">Create User</Link>
+        </Button>
       </div>
       <UserList
         users={filteredUsers}

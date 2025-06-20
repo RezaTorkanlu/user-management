@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Geist_Mono , Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/UI/Navbar";
+import Navbar from "@/components/Navbar";
 import { ToastContainer } from "react-toastify";
 import { UserProvider } from "@/context/UserContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const robotoSans = Roboto({
+  variable: "--font-roboto-sans",
   subsets: ["latin"],
 });
 
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${robotoSans.variable} ${geistMono.variable} antialiased`}
       >
         <UserProvider>
           <Navbar />

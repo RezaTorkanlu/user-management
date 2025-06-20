@@ -1,6 +1,6 @@
 'use client'
 
-import UserForm from "@/components/UI/UserForm"
+import UserForm from "@/components/UserForm"
 import { useUserContext } from "@/context/UserContext"
 import { UpdateUser } from "@/types/users"
 import { useParams, useRouter } from "next/navigation"
